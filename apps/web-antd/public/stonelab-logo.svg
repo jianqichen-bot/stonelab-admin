@@ -1,5 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="18" fill="#30483a"/>
-  <path d="M32 12 51 27 44 49H20L13 27Z" fill="#f4f2ed"/>
-  <path d="m13 27 19 8 19-8M32 12v23M20 49l12-14 12 14" fill="none" stroke="#9aaa9e" stroke-width="2.4" stroke-linejoin="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="StoneLab">
+  <defs>
+    <linearGradient id="background" x1="10" y1="8" x2="54" y2="58" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#155EEF"/>
+      <stop offset="1" stop-color="#0BA5EC"/>
+    </linearGradient>
+    <linearGradient id="crystal" x1="24" y1="16" x2="39" y2="48" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF" stop-opacity=".96"/>
+      <stop offset="1" stop-color="#D1E9FF" stop-opacity=".82"/>
+    </linearGradient>
+  </defs>
+  <rect x="2" y="2" width="60" height="60" rx="17" fill="url(#background)"/>
+  <path d="M16.5 25.5 24.5 15h15l8 10.5L32 49 16.5 25.5Z" fill="url(#crystal)" fill-opacity=".2" stroke="#fff" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="m16.5 25.5 15.5 5 15.5-5M24.5 15 32 30.5 39.5 15M32 30.5V49M16.5 25.5 32 49l15.5-23.5" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m50 10 1.8 5.2L57 17l-5.2 1.8L50 24l-1.8-5.2L43 17l5.2-1.8L50 10Z" fill="#BAE6FD"/>
 </svg>
