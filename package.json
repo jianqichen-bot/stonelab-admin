@@ -1,9 +1,14 @@
 {
   "name": "stonelab-admin-monorepo",
   "version": "0.1.0",
-  "private": true,
   "description": "StoneLab 运营管理后台",
-  "keywords": ["stonelab", "admin", "vue", "ant-design-vue"],
+  "private": true,
+  "keywords": [
+    "stonelab",
+    "admin",
+    "vue",
+    "ant-design-vue"
+  ],
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -19,7 +24,6 @@
     "clean": "node ./scripts/clean.mjs",
     "commit": "czg",
     "dev": "pnpm --filter @stonelab/admin run dev",
-    "dev:mock": "pnpm --filter @vben/backend-mock run start",
     "format": "vsh lint --format",
     "lint": "vsh lint",
     "postinstall": "pnpm -r run --if-present stub",

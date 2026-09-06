@@ -8,9 +8,8 @@ export default defineConfig(async () => {
         proxy: {
           '/api': {
             changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-            // mock代理目标地址
-            target: 'http://localhost:5320/api',
+            // 本地 StoneLab 服务端，保留 /api 前缀原样转发。
+            target: 'http://localhost:3100',
             ws: true,
           },
         },

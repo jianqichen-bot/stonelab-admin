@@ -14,13 +14,14 @@ pnpm install
 pnpm dev
 ```
 
-开发环境默认启用内置 Mock API。临时管理员账号：`admin`，密码：`123456`。
-
-单独启动 Mock 服务：
+先启动本地服务端：
 
 ```bash
-pnpm dev:mock
+cd ../stonelab-server
+npm run dev
 ```
+
+再启动管理后台。开发服务器会将 `/api` 原样代理到 `http://localhost:3100`。本地管理员账号：`admin`，密码：`123456`。
 
 ## 构建与检查
 
@@ -33,8 +34,7 @@ pnpm lint
 ## 目录
 
 - `apps/web-antd`：StoneLab 管理端应用
-- `apps/backend-mock`：服务端完成前使用的认证 Mock
 - `packages`：Vben 共享 UI、状态、权限和工具包
 - `internal`、`scripts`：构建与工程工具
 
-业务接口统一使用 `/api` 前缀。服务端接入后关闭 `VITE_NITRO_MOCK`，并由部署环境提供真实 API 地址。
+业务接口统一使用 `/api` 前缀。开发环境连接本地 `stonelab-server`，生产环境由部署环境提供真实 API 地址。
