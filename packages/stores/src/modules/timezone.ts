@@ -13,6 +13,7 @@ interface TimezoneHandler {
   getTimezoneOptions?: () => Promise<
     {
       label: string;
+      labelKey?: string;
       value: string;
     }[]
   >;
@@ -29,7 +30,8 @@ const getDefaultTimezoneHandler = (): TimezoneHandler => {
       return Promise.resolve(
         DEFAULT_TIME_ZONE_OPTIONS.map((item) => {
           return {
-            label: item.label,
+            label: item.timezone,
+            labelKey: item.labelKey,
             value: item.timezone,
           };
         }),

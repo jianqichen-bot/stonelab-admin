@@ -1,0 +1,144 @@
+{
+  "title": "系统管理",
+  "common": {
+    "actions": "操作",
+    "status": "状态",
+    "statusPlaceholder": "请选择状态",
+    "sort": "排序",
+    "sortPlaceholder": "请输入排序值",
+    "createdAt": "创建时间",
+    "remark": "备注",
+    "remarkPlaceholder": "请输入备注",
+    "enabled": "启用",
+    "disabled": "停用",
+    "edit": "编辑",
+    "delete": "删除"
+  },
+  "menu": {
+    "title": "菜单管理",
+    "description": "维护后台导航、页面入口和操作权限",
+    "create": "新建菜单",
+    "edit": "编辑菜单",
+    "addChild": "新增下级",
+    "created": "菜单已创建",
+    "updated": "菜单已更新",
+    "deleted": "菜单已删除",
+    "deleteConfirm": "确定删除这个菜单？",
+    "deleteChildrenFirst": "请先删除下级菜单",
+    "validation": {
+      "name": "请填写菜单名称",
+      "i18nKey": "请填写国际化标识",
+      "path": "请填写路由地址"
+    },
+    "fields": {
+      "name": "菜单名称",
+      "i18nKey": "国际化标识",
+      "type": "类型",
+      "path": "路由地址",
+      "component": "组件路径",
+      "permission": "权限标识",
+      "icon": "菜单图标",
+      "parent": "上级菜单"
+    },
+    "types": {
+      "DIRECTORY": "目录",
+      "MENU": "菜单",
+      "BUTTON": "按钮"
+    },
+    "placeholders": {
+      "name": "请输入菜单名称",
+      "i18nKey": "例如 system.menu.title",
+      "parent": "请选择上级菜单",
+      "path": "例如 /system/users",
+      "component": "例如 /system/users/index",
+      "permission": "例如 system:user:list",
+      "icon": "例如 lucide:settings"
+    }
+  },
+  "user": {
+    "title": "用户管理",
+    "description": "维护后台登录用户、所属部门和角色",
+    "create": "新建用户",
+    "edit": "编辑用户",
+    "created": "用户已创建",
+    "updated": "用户已更新",
+    "deleted": "用户已删除",
+    "deleteConfirm": "确定删除这个用户？",
+    "searchPlaceholder": "搜索账号或姓名",
+    "allDepartments": "全部部门",
+    "validation": {
+      "identity": "请填写登录账号和用户姓名",
+      "password": "请输入至少 6 位的初始密码",
+      "department": "请选择所属部门",
+      "role": "请至少选择一个角色"
+    },
+    "fields": {
+      "username": "登录账号",
+      "name": "用户姓名",
+      "password": "初始密码",
+      "department": "所属部门",
+      "departmentShort": "部门",
+      "roles": "角色",
+      "phone": "手机号",
+      "email": "邮箱"
+    },
+    "placeholders": {
+      "username": "请输入登录账号",
+      "name": "请输入用户姓名",
+      "password": "请输入至少 6 位的初始密码",
+      "department": "请选择所属部门",
+      "roles": "请选择角色",
+      "phone": "请输入手机号",
+      "email": "请输入邮箱"
+    }
+  },
+  "role": {
+    "title": "角色管理",
+    "description": "配置后台角色及其菜单权限",
+    "create": "新建角色",
+    "edit": "编辑角色",
+    "created": "角色已创建",
+    "updated": "角色已更新",
+    "deleted": "角色已删除",
+    "deleteConfirm": "确定删除这个角色？",
+    "searchPlaceholder": "搜索角色名称或标识",
+    "validation": {
+      "code": "请填写角色标识",
+      "codeFormat": "角色标识只能使用小写字母、数字和下划线",
+      "name": "请填写角色名称"
+    },
+    "fields": {
+      "code": "角色标识",
+      "name": "角色名称",
+      "permissionCount": "权限数量",
+      "menuPermissions": "菜单权限"
+    },
+    "placeholders": {
+      "code": "请输入角色标识，如 product_operator",
+      "name": "请输入角色名称"
+    }
+  },
+  "department": {
+    "title": "部门管理",
+    "description": "维护组织层级，供用户归属与数据权限使用",
+    "create": "新建部门",
+    "edit": "编辑部门",
+    "addChild": "新增下级",
+    "created": "部门已创建",
+    "updated": "部门已更新",
+    "deleted": "部门已删除",
+    "deleteConfirm": "确定删除这个部门？",
+    "deleteChildrenFirst": "请先删除下级部门",
+    "validation": {
+      "name": "请填写部门名称"
+    },
+    "fields": {
+      "name": "部门名称",
+      "parent": "上级部门"
+    },
+    "placeholders": {
+      "name": "请输入部门名称",
+      "parent": "请选择上级部门"
+    }
+  }
+}

@@ -159,7 +159,14 @@
     },
     "timezone": {
       "setTimezone": "设置时区",
-      "setSuccess": "时区设置成功"
+      "setSuccess": "时区设置成功",
+      "options": {
+        "newYork": "纽约（GMT-5）",
+        "london": "伦敦（GMT+0）",
+        "shanghai": "上海（GMT+8）",
+        "tokyo": "东京（GMT+9）",
+        "seoul": "首尔（GMT+9）"
+      }
     }
   }
 }

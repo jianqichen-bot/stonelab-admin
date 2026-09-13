@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { LanguageOption } from '@vben/constants';
 
-import { onMounted, onUnmounted, ref, unref } from 'vue';
+import { computed, onMounted, onUnmounted, ref, unref } from 'vue';
 
 import { onSupportLanguagesChange } from '@vben/constants';
 import { $t } from '@vben/locales';
@@ -35,9 +35,18 @@ onUnmounted(unsubscribe);
 const timezoneOptionsRef = ref<
   {
     label: string;
+    labelKey?: string;
     value: string;
   }[]
 >([]);
+const localizedTimezoneOptions = computed(() => {
+  // Rebuild labels whenever the selected locale changes.
+  void appLocale.value;
+  return timezoneOptionsRef.value.map((item) => ({
+    ...item,
+    label: item.labelKey ? $t(item.labelKey) : item.label,
+  }));
+});
 
 onMounted(async () => {
   timezoneOptionsRef.value = await timezoneStore.getTimezoneOptions();
@@ -53,7 +62,7 @@ onMounted(async () => {
   <SelectItem v-model="appLocale" :items="languageList">
     {{ $t('preferences.language') }}
   </SelectItem>
-  <SelectItem v-model="appTimezone" :items="timezoneOptionsRef">
+  <SelectItem v-model="appTimezone" :items="localizedTimezoneOptions">
     {{ $t('preferences.timezone') }}
   </SelectItem>
   <SwitchItem v-model="appDynamicTitle">

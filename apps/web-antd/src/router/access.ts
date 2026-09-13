@@ -5,12 +5,14 @@ import type {
 
 import { generateAccessible } from '@vben/access';
 import { preferences } from '@vben/preferences';
+import { generateMenus } from '@vben/utils';
 
 import { message } from 'ant-design-vue';
 
 import { getAllMenusApi } from '#/api';
 import { BasicLayout, IFrameView } from '#/layouts';
 import { $t } from '#/locales';
+import { fixedRoutes } from '#/router/routes';
 
 const forbiddenComponent = () => import('#/views/_core/fallback/forbidden.vue');
 
@@ -22,7 +24,7 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
     IFrameView,
   };
 
-  return await generateAccessible(preferences.app.accessMode, {
+  const result = await generateAccessible(preferences.app.accessMode, {
     ...options,
     fetchMenuListAsync: async () => {
       message.loading({
@@ -37,6 +39,14 @@ async function generateAccess(options: GenerateMenuAndRoutesOptions) {
     layoutMap,
     pageMap,
   });
+
+  return {
+    ...result,
+    accessibleMenus: generateMenus(
+      [...fixedRoutes, ...result.accessibleRoutes],
+      options.router,
+    ),
+  };
 }
 
 export { generateAccess };

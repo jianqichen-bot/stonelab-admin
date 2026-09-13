@@ -47,8 +47,8 @@ const formSchema = computed((): VbenFormSchema[] => {
     :show-qrcode-login="false"
     :show-register="false"
     :show-third-party-login="false"
-    sub-title="使用运营管理员账号登录"
-    title="StoneLab 管理后台"
+    :sub-title="$t('page.login.subtitle')"
+    :title="$t('page.login.title')"
     @submit="authStore.authLogin"
   />
 </template>

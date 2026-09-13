@@ -21,6 +21,8 @@ import {
   listCategoriesApi,
   updateCategoryApi,
 } from '#/api';
+import { $t } from '#/locales';
+
 import CategoryFormModal from './components/category-form-modal.vue';
 
 const loading = ref(false);
@@ -43,13 +45,18 @@ const categoryTree = computed(() =>
     }),
 );
 
-const columns = [
-  { title: '分类名称', dataIndex: 'name', key: 'name' },
-  { title: '上级分类', key: 'parent' },
-  { title: '排序', dataIndex: 'sort', key: 'sort', width: 90 },
-  { title: '状态', key: 'status', width: 100 },
-  { title: '操作', key: 'actions', width: 180 },
-];
+const columns = computed(() => [
+  { title: $t('catalog.category.fields.name'), dataIndex: 'name', key: 'name' },
+  { title: $t('catalog.category.fields.parent'), key: 'parent' },
+  {
+    title: $t('catalog.common.sort'),
+    dataIndex: 'sort',
+    key: 'sort',
+    width: 90,
+  },
+  { title: $t('catalog.common.status'), key: 'status', width: 100 },
+  { title: $t('catalog.common.actions'), key: 'actions', width: 180 },
+]);
 
 async function loadCategories() {
   loading.value = true;
@@ -96,7 +103,13 @@ async function saveCategory(payload: CategoryInput) {
     await (editingCategory.value
       ? updateCategoryApi(editingCategory.value.id, payload)
       : createCategoryApi(payload));
-    message.success(editingCategory.value ? '分类已更新' : '分类已创建');
+    message.success(
+      $t(
+        editingCategory.value
+          ? 'catalog.category.updated'
+          : 'catalog.category.created',
+      ),
+    );
     modalOpen.value = false;
     await loadCategories();
   } finally {
@@ -106,7 +119,7 @@ async function saveCategory(payload: CategoryInput) {
 
 async function removeCategory(id: number) {
   await deleteCategoryApi(id);
-  message.success('分类已删除');
+  message.success($t('catalog.category.deleted'));
   await loadCategories();
 }
 
@@ -114,16 +127,23 @@ onMounted(loadCategories);
 </script>
 
 <template>
-  <Page description="维护 DIY 素材使用的一级和二级分类" title="分类管理">
+  <Page
+    :description="$t('catalog.category.description')"
+    :title="$t('catalog.category.title')"
+  >
     <Card :bordered="false">
       <div class="mb-4 flex justify-between">
-        <Button :loading="loading" @click="loadCategories">刷新</Button>
-        <Button type="primary" @click="openCreate">新建分类</Button>
+        <Button :loading="loading" @click="loadCategories">
+          {{ $t('common.refresh') }}
+        </Button>
+        <Button type="primary" @click="openCreate">
+          {{ $t('catalog.category.create') }}
+        </Button>
       </div>
       <Table
+        v-model:expanded-row-keys="expandedRowKeys"
         :columns="columns"
         :data-source="categoryTree"
-        v-model:expanded-row-keys="expandedRowKeys"
         :loading="loading"
         :pagination="false"
         row-key="id"
@@ -134,7 +154,13 @@ onMounted(loadCategories);
           </template>
           <template v-else-if="column.key === 'status'">
             <Tag :color="record.status === 'ENABLED' ? 'green' : 'default'">
-              {{ record.status === 'ENABLED' ? '启用' : '停用' }}
+              {{
+                $t(
+                  record.status === 'ENABLED'
+                    ? 'common.enabled'
+                    : 'common.disabled',
+                )
+              }}
             </Tag>
           </template>
           <template v-else-if="column.key === 'actions'">
@@ -144,13 +170,15 @@ onMounted(loadCategories);
                 type="link"
                 @click="openEdit(asCategory(record))"
               >
-                编辑
+                {{ $t('common.edit') }}
               </Button>
               <Popconfirm
-                title="确定删除这个分类？"
+                :title="$t('catalog.category.deleteConfirm')"
                 @confirm="removeCategory(record.id)"
               >
-                <Button danger size="small" type="link">删除</Button>
+                <Button danger size="small" type="link">
+                  {{ $t('common.delete') }}
+                </Button>
               </Popconfirm>
             </Space>
           </template>

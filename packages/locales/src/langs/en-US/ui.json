@@ -159,7 +159,14 @@
     },
     "timezone": {
       "setTimezone": "Set Timezone",
-      "setSuccess": "Timezone set successfully"
+      "setSuccess": "Timezone set successfully",
+      "options": {
+        "newYork": "New York (GMT-5)",
+        "london": "London (GMT+0)",
+        "shanghai": "Shanghai (GMT+8)",
+        "tokyo": "Tokyo (GMT+9)",
+        "seoul": "Seoul (GMT+9)"
+      }
     }
   }
 }

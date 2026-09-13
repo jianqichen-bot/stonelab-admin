@@ -1,4 +1,4 @@
-import { initPreferences } from '@vben/preferences';
+import { initPreferences, updatePreferences } from '@vben/preferences';
 import { unmountGlobalLoading } from '@vben/utils';
 
 import { migrateLegacyThemeColor, overridesPreferences } from './preferences';
@@ -19,6 +19,18 @@ async function initApplication() {
   await initPreferences({
     namespace,
     overrides: overridesPreferences,
+  });
+  // StoneLab 的业务路由由服务端按角色下发，不能被历史本地偏好切回 frontend。
+  updatePreferences({
+    app: { accessMode: 'backend' },
+    widget: {
+      languageToggle: true,
+      languageToggleButtonPosition: 'header',
+      notification: true,
+      notificationButtonPosition: 'header',
+      timezone: true,
+      timezoneButtonPosition: 'header',
+    },
   });
 
   // 启动应用并挂载

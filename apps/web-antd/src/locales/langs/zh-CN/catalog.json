@@ -1,0 +1,91 @@
+{
+  "title": "商品中心",
+  "common": {
+    "actions": "操作",
+    "sort": "排序",
+    "sortPlaceholder": "请输入排序值",
+    "status": "状态",
+    "statusPlaceholder": "请选择状态"
+  },
+  "category": {
+    "title": "分类管理",
+    "description": "维护 DIY 素材使用的一级和二级分类",
+    "create": "新建分类",
+    "edit": "编辑分类",
+    "created": "分类已创建",
+    "updated": "分类已更新",
+    "deleted": "分类已删除",
+    "deleteConfirm": "确定删除这个分类？",
+    "nameRequired": "请填写分类名称",
+    "namePlaceholder": "请输入分类名称",
+    "rootPlaceholder": "不选择则为根分类",
+    "fields": {
+      "name": "分类名称",
+      "parent": "上级分类"
+    }
+  },
+  "product": {
+    "title": "珠子商品",
+    "description": "维护小程序 DIY 使用的珠子、规格、价格和库存",
+    "create": "新建商品",
+    "edit": "编辑商品",
+    "created": "商品已创建",
+    "updated": "商品已更新",
+    "deleted": "商品已删除",
+    "deleteConfirm": "确定删除这个商品？",
+    "searchPlaceholder": "搜索商品名称",
+    "allCategories": "全部分类",
+    "allStatuses": "全部状态",
+    "namePlaceholder": "请输入商品名称",
+    "formRequired": "请填写分类和商品名称",
+    "noImage": "暂无图片",
+    "selectImage": "选择图片",
+    "removeImage": "移除图片",
+    "fields": {
+      "image": "图片",
+      "product": "商品",
+      "name": "商品名称",
+      "category": "分类",
+      "shape": "形状",
+      "variants": "规格",
+      "status": "状态",
+      "actions": "操作"
+    },
+    "shapes": {
+      "ROUND": "圆珠",
+      "CUBE": "方形",
+      "CHARM": "吊坠",
+      "CHIP": "碎石"
+    },
+    "variantSummary": "{count} 个规格 · 库存 {stock}",
+    "variantInventory": "规格库存",
+    "inventoryAdjustmentRemark": "编辑规格时调整库存",
+    "variant": {
+      "create": "添加规格",
+      "edit": "编辑规格",
+      "created": "规格已添加",
+      "updated": "规格已更新",
+      "deleted": "规格已删除",
+      "deleteConfirm": "确定删除这个规格？",
+      "validation": "请填写正确的珠径、单价和库存数量",
+      "title": "{name} · 规格库存",
+      "diameter": "珠径",
+      "price": "单价",
+      "stock": "库存",
+      "stockQuantity": "库存数量",
+      "status": "状态",
+      "actions": "操作",
+      "diameterPlaceholder": "请输入珠径",
+      "pricePlaceholder": "请输入单价",
+      "stockPlaceholder": "请输入库存数量"
+    },
+    "imagePicker": {
+      "title": "选择商品图片",
+      "source": "素材来自 OSS 的 beads/ 目录",
+      "upload": "上传新图片",
+      "empty": "还没有图片，请先上传",
+      "uploaded": "图片已上传，请确认使用",
+      "selectRequired": "请先选择一张图片"
+    }
+  }
+}

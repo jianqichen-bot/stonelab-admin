@@ -1,59 +1,63 @@
 <script setup lang="ts">
-import type { BasicOption } from '@vben/types';
+import type { Recordable } from '@vben/types';
 
 import type { VbenFormSchema } from '#/adapter/form';
 
 import { computed, onMounted, ref } from 'vue';
 
 import { ProfileBaseSetting } from '@vben/common-ui';
+import { useUserStore } from '@vben/stores';
 
-import { getUserInfoApi } from '#/api';
+import { message } from 'ant-design-vue';
+
+import { getUserInfoApi, updateProfileApi } from '#/api';
+import { $t } from '#/locales';
 
 const profileBaseSettingRef = ref();
-
-const MOCK_ROLES_OPTIONS: BasicOption[] = [
-  {
-    label: '管理员',
-    value: 'super',
-  },
-  {
-    label: '用户',
-    value: 'user',
-  },
-  {
-    label: '测试',
-    value: 'test',
-  },
-];
+const userStore = useUserStore();
 
 const formSchema = computed((): VbenFormSchema[] => {
   return [
     {
+      component: 'Input',
+      componentProps: { placeholder: $t('page.profile.placeholders.realName') },
       fieldName: 'realName',
-      component: 'Input',
-      label: '姓名',
+      label: $t('page.profile.fields.realName'),
     },
     {
-      fieldName: 'username',
       component: 'Input',
-      label: '用户名',
-    },
-    {
-      fieldName: 'roles',
-      component: 'Select',
       componentProps: {
-        mode: 'tags',
-        options: MOCK_ROLES_OPTIONS,
+        disabled: true,
+        placeholder: $t('page.profile.placeholders.username'),
       },
-      label: '角色',
+      fieldName: 'username',
+      label: $t('page.profile.fields.username'),
     },
     {
-      fieldName: 'introduction',
-      component: 'Textarea',
-      label: '个人简介',
+      component: 'Input',
+      componentProps: { placeholder: $t('page.profile.placeholders.phone') },
+      fieldName: 'phone',
+      label: $t('page.profile.fields.phone'),
+    },
+    {
+      component: 'Input',
+      componentProps: { placeholder: $t('page.profile.placeholders.email') },
+      fieldName: 'email',
+      label: $t('page.profile.fields.email'),
     },
   ];
 });
+async function handleSubmit(values: Recordable<any>) {
+  await updateProfileApi({
+    realName: values.realName,
+    phone: values.phone,
+    email: values.email,
+  });
+  if (userStore.userInfo) {
+    userStore.setUserInfo({ ...userStore.userInfo, realName: values.realName });
+  }
+  message.success($t('page.profile.updated'));
+}
 
 onMounted(async () => {
   const data = await getUserInfoApi();
@@ -61,5 +65,9 @@ onMounted(async () => {
 });
 </script>
 <template>
-  <ProfileBaseSetting ref="profileBaseSettingRef" :form-schema="formSchema" />
+  <ProfileBaseSetting
+    ref="profileBaseSettingRef"
+    :form-schema="formSchema"
+    @submit="handleSubmit"
+  />
 </template>

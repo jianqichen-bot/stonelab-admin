@@ -24,13 +24,15 @@ import {
   Space,
 } from 'ant-design-vue';
 
+import { $t } from '#/locales';
+
 import ImagePickerModal from './image-picker-modal.vue';
 
 const props = defineProps<{
   categories: Category[];
   confirmLoading: boolean;
   open: boolean;
-  product: Product | null;
+  product: null | Product;
 }>();
 
 const emit = defineEmits<{
@@ -52,12 +54,12 @@ const form = reactive({
 const categoryOptions = computed(() =>
   props.categories.filter((item) => item.parentId !== null),
 );
-const shapeLabels: Record<BeadShape, string> = {
-  ROUND: '圆珠',
-  CUBE: '方形',
-  CHARM: '吊坠',
-  CHIP: '碎石',
-};
+const shapeLabels = computed<Record<BeadShape, string>>(() => ({
+  ROUND: $t('catalog.product.shapes.ROUND'),
+  CUBE: $t('catalog.product.shapes.CUBE'),
+  CHARM: $t('catalog.product.shapes.CHARM'),
+  CHIP: $t('catalog.product.shapes.CHIP'),
+}));
 
 watch(
   () => props.open,
@@ -87,7 +89,7 @@ function removeImage() {
 
 function submit() {
   if (!form.categoryId || !form.name.trim()) {
-    message.warning('请填写分类和商品名称');
+    message.warning($t('catalog.product.formRequired'));
     return;
   }
   const imagePayload: Pick<ProductInput, 'imageKey'> = {};
@@ -109,17 +111,23 @@ function submit() {
   <Modal
     :confirm-loading="confirmLoading"
     :open="open"
-    :title="product ? '编辑商品' : '新建商品'"
+    :title="$t(product ? 'catalog.product.edit' : 'catalog.product.create')"
     width="620px"
     @ok="submit"
     @update:open="emit('update:open', $event)"
   >
     <Form class="pt-4" :label-col="{ span: 5 }" :model="form">
-      <FormItem label="商品名称" required>
-        <Input v-model:value="form.name" />
+      <FormItem :label="$t('catalog.product.fields.name')" required>
+        <Input
+          v-model:value="form.name"
+          :placeholder="$t('catalog.product.namePlaceholder')"
+        />
       </FormItem>
-      <FormItem label="分类" required>
-        <Select v-model:value="form.categoryId">
+      <FormItem :label="$t('catalog.product.fields.category')" required>
+        <Select
+          v-model:value="form.categoryId"
+          :placeholder="$t('catalog.product.allCategories')"
+        >
           <SelectOption
             v-for="item in categoryOptions"
             :key="item.id"
@@ -129,7 +137,7 @@ function submit() {
           </SelectOption>
         </Select>
       </FormItem>
-      <FormItem label="商品图片">
+      <FormItem :label="$t('catalog.product.fields.image')">
         <div class="flex items-center gap-3">
           <div class="product-image-preview">
             <Image
@@ -139,10 +147,16 @@ function submit() {
               :width="88"
               class="rounded-lg object-cover"
             />
-            <span v-else class="text-gray-400">暂无图片</span>
+            <span v-else class="text-gray-400">{{
+              $t('catalog.product.noImage')
+            }}</span>
           </div>
           <Space direction="vertical">
-            <Button @click="imagePickerOpen = true">选择图片</Button>
+            <Button @click="imagePickerOpen = true">
+{{
+              $t('catalog.product.selectImage')
+            }}
+</Button>
             <Button
               v-if="form.imageKey"
               danger
@@ -150,13 +164,16 @@ function submit() {
               type="link"
               @click="removeImage"
             >
-              移除图片
+              {{ $t('catalog.product.removeImage') }}
             </Button>
           </Space>
         </div>
       </FormItem>
-      <FormItem label="形状">
-        <Select v-model:value="form.shape">
+      <FormItem :label="$t('catalog.product.fields.shape')">
+        <Select
+          v-model:value="form.shape"
+          :placeholder="$t('catalog.product.fields.shape')"
+        >
           <SelectOption
             v-for="(label, value) in shapeLabels"
             :key="value"
@@ -166,13 +183,28 @@ function submit() {
           </SelectOption>
         </Select>
       </FormItem>
-      <FormItem label="排序">
-        <InputNumber v-model:value="form.sort" class="w-full" />
+      <FormItem :label="$t('catalog.common.sort')">
+        <InputNumber
+          v-model:value="form.sort"
+          class="w-full"
+          :placeholder="$t('catalog.common.sortPlaceholder')"
+        />
       </FormItem>
-      <FormItem label="状态">
-        <Select v-model:value="form.status">
-          <SelectOption value="ENABLED">启用</SelectOption>
-          <SelectOption value="DISABLED">停用</SelectOption>
+      <FormItem :label="$t('catalog.common.status')">
+        <Select
+          v-model:value="form.status"
+          :placeholder="$t('catalog.common.statusPlaceholder')"
+        >
+          <SelectOption value="ENABLED">
+{{
+            $t('common.enabled')
+          }}
+</SelectOption>
+          <SelectOption value="DISABLED">
+{{
+            $t('common.disabled')
+          }}
+</SelectOption>
         </Select>
       </FormItem>
     </Form>

@@ -1,11 +1,15 @@
 <script lang="ts" setup>
 import type { Product, Variant } from '#/api';
 
+import { computed } from 'vue';
+
 import { Button, Modal, Popconfirm, Table } from 'ant-design-vue';
+
+import { $t } from '#/locales';
 
 defineProps<{
   open: boolean;
-  product: Product | null;
+  product: null | Product;
 }>();
 
 const emit = defineEmits<{
@@ -15,13 +19,13 @@ const emit = defineEmits<{
   'update:open': [value: boolean];
 }>();
 
-const columns = [
-  { title: '珠径', key: 'size', width: 120 },
-  { title: '单价', key: 'price', width: 100 },
-  { title: '库存', key: 'stock', width: 100 },
-  { title: '状态', key: 'status', width: 80 },
-  { title: '操作', key: 'actions', width: 150 },
-];
+const columns = computed(() => [
+  { title: $t('catalog.product.variant.diameter'), key: 'size', width: 120 },
+  { title: $t('catalog.product.variant.price'), key: 'price', width: 100 },
+  { title: $t('catalog.product.variant.stock'), key: 'stock', width: 100 },
+  { title: $t('catalog.product.variant.status'), key: 'status', width: 80 },
+  { title: $t('catalog.product.variant.actions'), key: 'actions', width: 150 },
+]);
 
 function asVariant(record: Record<string, unknown>) {
   return record as unknown as Variant;
@@ -32,12 +36,16 @@ function asVariant(record: Record<string, unknown>) {
   <Modal
     :footer="null"
     :open="open"
-    :title="`${product?.name ?? ''} · 规格库存`"
+    :title="$t('catalog.product.variant.title', { name: product?.name ?? '' })"
     width="850px"
     @update:open="emit('update:open', $event)"
   >
     <div class="mb-3 flex justify-end">
-      <Button type="primary" @click="emit('add')">添加规格</Button>
+      <Button type="primary" @click="emit('add')">
+{{
+        $t('catalog.product.variant.create')
+      }}
+</Button>
     </div>
     <Table
       :columns="columns"
@@ -57,7 +65,13 @@ function asVariant(record: Record<string, unknown>) {
           {{ record.stock }}
         </template>
         <template v-else-if="column.key === 'status'">
-          {{ record.status === 'ENABLED' ? '启用' : '停用' }}
+          {{
+            $t(
+              record.status === 'ENABLED'
+                ? 'common.enabled'
+                : 'common.disabled',
+            )
+          }}
         </template>
         <template v-else-if="column.key === 'actions'">
           <Button
@@ -65,13 +79,17 @@ function asVariant(record: Record<string, unknown>) {
             type="link"
             @click="emit('edit', asVariant(record))"
           >
-            编辑
+            {{ $t('common.edit') }}
           </Button>
           <Popconfirm
-            title="确定删除这个规格？"
+            :title="$t('catalog.product.variant.deleteConfirm')"
             @confirm="emit('delete', record.id)"
           >
-            <Button danger size="small" type="link">删除</Button>
+            <Button danger size="small" type="link">
+{{
+              $t('common.delete')
+            }}
+</Button>
           </Popconfirm>
         </template>
       </template>

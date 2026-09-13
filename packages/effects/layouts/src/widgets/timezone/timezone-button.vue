@@ -23,6 +23,7 @@ const timezoneRef = ref<string | undefined>();
 const timezoneOptionsRef = ref<
   {
     label: string;
+    labelKey?: string;
     value: string;
   }[]
 >([]);
@@ -75,9 +76,9 @@ defineExpose({ open });
             :key="`container${item.value}`"
           >
             <RadioGroupItem :id="item.value" :value="item.value" />
-            <label :for="item.value" class="cursor-pointer">{{
-              item.label
-            }}</label>
+            <label :for="item.value" class="cursor-pointer">
+              {{ item.labelKey ? $t(item.labelKey) : item.label }}
+            </label>
           </div>
         </RadioGroup>
       </div>

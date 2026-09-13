@@ -1,0 +1,91 @@
+{
+  "title": "Catalog",
+  "common": {
+    "actions": "Actions",
+    "sort": "Sort Order",
+    "sortPlaceholder": "Enter sort order",
+    "status": "Status",
+    "statusPlaceholder": "Select a status"
+  },
+  "category": {
+    "title": "Categories",
+    "description": "Manage primary and secondary categories for DIY materials",
+    "create": "New Category",
+    "edit": "Edit Category",
+    "created": "Category created",
+    "updated": "Category updated",
+    "deleted": "Category deleted",
+    "deleteConfirm": "Delete this category?",
+    "nameRequired": "Enter a category name",
+    "namePlaceholder": "Enter category name",
+    "rootPlaceholder": "Leave empty for a root category",
+    "fields": {
+      "name": "Category Name",
+      "parent": "Parent Category"
+    }
+  },
+  "product": {
+    "title": "Bead Products",
+    "description": "Manage beads, variants, prices, and inventory used by the mini app",
+    "create": "New Product",
+    "edit": "Edit Product",
+    "created": "Product created",
+    "updated": "Product updated",
+    "deleted": "Product deleted",
+    "deleteConfirm": "Delete this product?",
+    "searchPlaceholder": "Search product name",
+    "allCategories": "All Categories",
+    "allStatuses": "All Statuses",
+    "namePlaceholder": "Enter product name",
+    "formRequired": "Select a category and enter a product name",
+    "noImage": "No image",
+    "selectImage": "Select Image",
+    "removeImage": "Remove Image",
+    "fields": {
+      "image": "Image",
+      "product": "Product",
+      "name": "Product Name",
+      "category": "Category",
+      "shape": "Shape",
+      "variants": "Variants",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "shapes": {
+      "ROUND": "Round",
+      "CUBE": "Cube",
+      "CHARM": "Charm",
+      "CHIP": "Chip"
+    },
+    "variantSummary": "{count} variants · Stock {stock}",
+    "variantInventory": "Variants & Inventory",
+    "inventoryAdjustmentRemark": "Inventory adjusted while editing variant",
+    "variant": {
+      "create": "Add Variant",
+      "edit": "Edit Variant",
+      "created": "Variant added",
+      "updated": "Variant updated",
+      "deleted": "Variant deleted",
+      "deleteConfirm": "Delete this variant?",
+      "validation": "Enter a valid diameter, unit price, and stock quantity",
+      "title": "{name} · Variants & Inventory",
+      "diameter": "Diameter",
+      "price": "Unit Price",
+      "stock": "Stock",
+      "stockQuantity": "Stock Quantity",
+      "status": "Status",
+      "actions": "Actions",
+      "diameterPlaceholder": "Enter diameter",
+      "pricePlaceholder": "Enter unit price",
+      "stockPlaceholder": "Enter stock quantity"
+    },
+    "imagePicker": {
+      "title": "Select Product Image",
+      "source": "Assets are loaded from the OSS beads/ directory",
+      "upload": "Upload New Image",
+      "empty": "No images yet. Upload one first.",
+      "uploaded": "Image uploaded. Confirm to use it.",
+      "selectRequired": "Select an image first"
+    }
+  }
+}

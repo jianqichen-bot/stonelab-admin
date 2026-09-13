@@ -38,6 +38,8 @@ import {
   updateProductApi,
   updateVariantApi,
 } from '#/api';
+import { $t } from '#/locales';
+
 import ProductFormModal from './components/product-form-modal.vue';
 import VariantFormModal from './components/variant-form-modal.vue';
 import VariantListModal from './components/variant-list-modal.vue';
@@ -55,7 +57,7 @@ const filters = reactive({
 const pager = reactive({ current: 1, pageSize: 20 });
 
 const productModalOpen = ref(false);
-const editingProduct = ref<Product | null>(null);
+const editingProduct = ref<null | Product>(null);
 
 const variantsModalOpen = ref(false);
 const activeProduct = ref<null | Product>(null);
@@ -68,21 +70,21 @@ const categoryOptions = computed(() =>
 const categoryName = computed(
   () => new Map(categories.value.map((item) => [item.id, item.name])),
 );
-const columns = [
-  { title: '图片', key: 'image', width: 76 },
-  { title: '商品', key: 'product' },
-  { title: '分类', key: 'category', width: 130 },
-  { title: '形状', key: 'shape', width: 90 },
-  { title: '规格', key: 'variants', width: 160 },
-  { title: '状态', key: 'status', width: 90 },
-  { title: '操作', key: 'actions', width: 240 },
-];
-const shapeLabels: Record<BeadShape, string> = {
-  ROUND: '圆珠',
-  CUBE: '方形',
-  CHARM: '吊坠',
-  CHIP: '碎石',
-};
+const columns = computed(() => [
+  { title: $t('catalog.product.fields.image'), key: 'image', width: 76 },
+  { title: $t('catalog.product.fields.product'), key: 'product' },
+  { title: $t('catalog.product.fields.category'), key: 'category', width: 130 },
+  { title: $t('catalog.product.fields.shape'), key: 'shape', width: 90 },
+  { title: $t('catalog.product.fields.variants'), key: 'variants', width: 160 },
+  { title: $t('catalog.product.fields.status'), key: 'status', width: 90 },
+  { title: $t('catalog.product.fields.actions'), key: 'actions', width: 240 },
+]);
+const shapeLabels = computed<Record<BeadShape, string>>(() => ({
+  ROUND: $t('catalog.product.shapes.ROUND'),
+  CUBE: $t('catalog.product.shapes.CUBE'),
+  CHARM: $t('catalog.product.shapes.CHARM'),
+  CHIP: $t('catalog.product.shapes.CHIP'),
+}));
 
 async function loadProducts(reset = false) {
   if (reset) pager.current = 1;
@@ -122,7 +124,13 @@ async function saveProduct(payload: ProductInput) {
     await (editingProduct.value
       ? updateProductApi(editingProduct.value.id, payload)
       : createProductApi(payload));
-    message.success(editingProduct.value ? '商品已更新' : '商品已创建');
+    message.success(
+      $t(
+        editingProduct.value
+          ? 'catalog.product.updated'
+          : 'catalog.product.created',
+      ),
+    );
     productModalOpen.value = false;
     await loadProducts();
   } finally {
@@ -132,7 +140,7 @@ async function saveProduct(payload: ProductInput) {
 
 async function removeProduct(id: number) {
   await deleteProductApi(id);
-  message.success('商品已删除');
+  message.success($t('catalog.product.deleted'));
   await loadProducts();
 }
 
@@ -172,7 +180,7 @@ async function saveVariant(value: {
       if (stockChange !== 0) {
         await adjustInventoryApi(editingVariant.value.id, {
           change: stockChange,
-          remark: '编辑规格时调整库存',
+          remark: $t('catalog.product.inventoryAdjustmentRemark'),
           type: 'ADJUSTMENT',
         });
       }
@@ -182,7 +190,13 @@ async function saveVariant(value: {
         stock: value.stock,
       });
     }
-    message.success(editingVariant.value ? '规格已更新' : '规格已添加');
+    message.success(
+      $t(
+        editingVariant.value
+          ? 'catalog.product.variant.updated'
+          : 'catalog.product.variant.created',
+      ),
+    );
     variantModalOpen.value = false;
     await refreshActiveProduct();
   } finally {
@@ -192,7 +206,7 @@ async function saveVariant(value: {
 
 async function removeVariant(id: number) {
   await deleteVariantApi(id);
-  message.success('规格已删除');
+  message.success($t('catalog.product.variant.deleted'));
   await refreshActiveProduct();
 }
 
@@ -210,8 +224,8 @@ onMounted(async () => {
 
 <template>
   <Page
-    description="维护小程序 DIY 使用的珠子、规格、价格和库存"
-    title="珠子商品"
+    :description="$t('catalog.product.description')"
+    :title="$t('catalog.product.title')"
   >
     <Card :bordered="false">
       <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -219,14 +233,14 @@ onMounted(async () => {
           <Input
             v-model:value="filters.keyword"
             allow-clear
-            placeholder="搜索商品名称"
+            :placeholder="$t('catalog.product.searchPlaceholder')"
             style="width: 200px"
             @press-enter="loadProducts(true)"
           />
           <Select
             v-model:value="filters.categoryId"
             allow-clear
-            placeholder="全部分类"
+            :placeholder="$t('catalog.product.allCategories')"
             style="width: 150px"
           >
             <SelectOption
@@ -240,15 +254,30 @@ onMounted(async () => {
           <Select
             v-model:value="filters.status"
             allow-clear
-            placeholder="全部状态"
+            :placeholder="$t('catalog.product.allStatuses')"
             style="width: 120px"
           >
-            <SelectOption value="ENABLED">启用</SelectOption
-            ><SelectOption value="DISABLED">停用</SelectOption>
+            <SelectOption value="ENABLED">
+{{
+              $t('common.enabled')
+            }}
+</SelectOption><SelectOption value="DISABLED">
+{{
+              $t('common.disabled')
+            }}
+</SelectOption>
           </Select>
-          <Button type="primary" @click="loadProducts(true)">查询</Button>
+          <Button type="primary" @click="loadProducts(true)">
+{{
+            $t('common.query')
+          }}
+</Button>
         </Space>
-        <Button type="primary" @click="openCreateProduct">新建商品</Button>
+        <Button type="primary" @click="openCreateProduct">
+{{
+          $t('catalog.product.create')
+        }}
+</Button>
       </div>
 
       <Table
@@ -284,17 +313,25 @@ onMounted(async () => {
             {{ shapeLabels[record.shape as BeadShape] }}
           </template>
           <template v-else-if="column.key === 'variants'">
-            {{ record.variants.length }} 个规格 · 库存
             {{
-              record.variants.reduce(
-                (sum: number, item: Variant) => sum + item.stock,
-                0,
-              )
+              $t('catalog.product.variantSummary', {
+                count: record.variants.length,
+                stock: record.variants.reduce(
+                  (sum: number, item: Variant) => sum + item.stock,
+                  0,
+                ),
+              })
             }}
           </template>
           <template v-else-if="column.key === 'status'">
             <Tag :color="record.status === 'ENABLED' ? 'green' : 'default'">
-              {{ record.status === 'ENABLED' ? '启用' : '停用' }}
+              {{
+                $t(
+                  record.status === 'ENABLED'
+                    ? 'common.enabled'
+                    : 'common.disabled',
+                )
+              }}
             </Tag>
           </template>
           <template v-else-if="column.key === 'actions'">
@@ -304,18 +341,20 @@ onMounted(async () => {
                 type="link"
                 @click="openEditProduct(asProduct(record))"
               >
-                编辑 </Button
-              ><Button
+                {{ $t('common.edit') }}
+</Button><Button
                 size="small"
                 type="link"
                 @click="openVariants(asProduct(record))"
               >
-                规格库存 </Button
-              ><Popconfirm
-                title="确定删除这个商品？"
+                {{ $t('catalog.product.variantInventory') }}
+</Button><Popconfirm
+                :title="$t('catalog.product.deleteConfirm')"
                 @confirm="removeProduct(record.id)"
               >
-                <Button danger size="small" type="link"> 删除 </Button>
+                <Button danger size="small" type="link">
+                  {{ $t('common.delete') }}
+                </Button>
               </Popconfirm>
             </Space>
           </template>

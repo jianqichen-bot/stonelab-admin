@@ -6,8 +6,9 @@ const STONELAB_PRIMARY_COLOR = 'hsl(212 100% 45%)';
 /** StoneLab 的应用级默认配置。 */
 export const overridesPreferences = defineOverridesPreferences({
   app: {
+    accessMode: 'backend',
     defaultAvatar: '/stonelab-logo.svg',
-    defaultHomePath: '/dashboard',
+    defaultHomePath: '/home',
     enableCheckUpdates: false,
     enableCopyPreferences: false,
     locale: 'zh-CN',
@@ -28,9 +29,9 @@ export const overridesPreferences = defineOverridesPreferences({
     radius: '0.5',
   },
   widget: {
-    languageToggle: false,
-    notification: false,
-    timezone: false,
+    languageToggle: true,
+    notification: true,
+    timezone: true,
   },
 });
 

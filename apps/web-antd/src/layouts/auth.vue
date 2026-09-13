@@ -4,7 +4,9 @@ import { computed } from 'vue';
 import { AuthPageLayout } from '@vben/layouts';
 import { preferences } from '@vben/preferences';
 
-const appName = computed(() => preferences.app.name);
+import { $t } from '#/locales';
+
+const appName = computed(() => $t('page.app.name'));
 const logo = computed(() => preferences.logo.source);
 const logoDark = computed(() => preferences.logo.sourceDark);
 </script>
@@ -14,8 +16,8 @@ const logoDark = computed(() => preferences.logo.sourceDark);
     :app-name="appName"
     :logo="logo"
     :logo-dark="logoDark"
-    page-description="管理商品、内容、库存与订单"
-    page-title="让每一颗石头有迹可循"
+    :page-description="$t('page.login.pageDescription')"
+    :page-title="$t('page.login.pageTitle')"
   >
     <!-- 自定义工具栏 -->
     <!-- <template #toolbar></template> -->

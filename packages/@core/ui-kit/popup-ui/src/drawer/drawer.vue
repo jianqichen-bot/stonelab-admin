@@ -223,7 +223,7 @@ const getForceMount = computed(() => {
           )
         "
       >
-        <div class="flex items-center">
+        <div class="flex items-center gap-2">
           <SheetClose
             v-if="closable && closeIconPlacement === 'left'"
             as-child

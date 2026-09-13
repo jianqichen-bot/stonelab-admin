@@ -13,6 +13,8 @@ import {
   SelectOption,
 } from 'ant-design-vue';
 
+import { $t } from '#/locales';
+
 interface VariantFormValue {
   diameterMm: number;
   price: number;
@@ -23,7 +25,7 @@ interface VariantFormValue {
 const props = defineProps<{
   confirmLoading: boolean;
   open: boolean;
-  variant: Variant | null;
+  variant: null | Variant;
 }>();
 
 const emit = defineEmits<{
@@ -63,7 +65,7 @@ function submit() {
     !Number.isInteger(form.stock) ||
     form.stock < 0
   ) {
-    message.warning('请填写正确的珠径、单价和库存数量');
+    message.warning($t('catalog.product.variant.validation'));
     return;
   }
   emit('submit', { ...form });
@@ -74,41 +76,61 @@ function submit() {
   <Modal
     :confirm-loading="confirmLoading"
     :open="open"
-    :title="variant ? '编辑规格' : '添加规格'"
+    :title="
+      $t(
+        variant
+          ? 'catalog.product.variant.edit'
+          : 'catalog.product.variant.create',
+      )
+    "
     @ok="submit"
     @update:open="emit('update:open', $event)"
   >
     <Form class="pt-4" :label-col="{ span: 6 }" :model="form">
-      <FormItem label="珠径" required>
+      <FormItem :label="$t('catalog.product.variant.diameter')" required>
         <InputNumber
           v-model:value="form.diameterMm"
           :min="0"
           :precision="2"
           class="w-full"
           addon-after="mm"
+          :placeholder="$t('catalog.product.variant.diameterPlaceholder')"
         />
       </FormItem>
-      <FormItem label="单价">
+      <FormItem :label="$t('catalog.product.variant.price')">
         <InputNumber
           v-model:value="form.price"
           :min="0"
           :precision="2"
           class="w-full"
           addon-before="¥"
+          :placeholder="$t('catalog.product.variant.pricePlaceholder')"
         />
       </FormItem>
-      <FormItem label="库存数量" required>
+      <FormItem :label="$t('catalog.product.variant.stockQuantity')" required>
         <InputNumber
           v-model:value="form.stock"
           :min="0"
           :precision="0"
           class="w-full"
+          :placeholder="$t('catalog.product.variant.stockPlaceholder')"
         />
       </FormItem>
-      <FormItem label="状态">
-        <Select v-model:value="form.status">
-          <SelectOption value="ENABLED">启用</SelectOption>
-          <SelectOption value="DISABLED">停用</SelectOption>
+      <FormItem :label="$t('catalog.common.status')">
+        <Select
+          v-model:value="form.status"
+          :placeholder="$t('catalog.common.statusPlaceholder')"
+        >
+          <SelectOption value="ENABLED">
+{{
+            $t('common.enabled')
+          }}
+</SelectOption>
+          <SelectOption value="DISABLED">
+{{
+            $t('common.disabled')
+          }}
+</SelectOption>
         </Select>
       </FormItem>
     </Form>

@@ -31,6 +31,10 @@ const menus = computed(() => [
   },
 ]);
 
+function handleClickLogo() {
+  void router.push({ name: 'Home' });
+}
+
 async function handleLogout() {
   await authStore.logout(false);
 }
@@ -71,7 +75,9 @@ watch(
 <template>
   <BasicLayout
     :avatar
+    :logo-text="$t('page.app.name')"
     :text="userStore.userInfo?.realName"
+    @click-logo="handleClickLogo"
     @clear-preferences-and-logout="handleLogout"
     @logout="handleLogout"
   >

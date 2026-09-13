@@ -1,0 +1,144 @@
+{
+  "title": "System Management",
+  "common": {
+    "actions": "Actions",
+    "status": "Status",
+    "statusPlaceholder": "Select a status",
+    "sort": "Sort Order",
+    "sortPlaceholder": "Enter sort order",
+    "createdAt": "Created At",
+    "remark": "Remarks",
+    "remarkPlaceholder": "Enter remarks",
+    "enabled": "Enabled",
+    "disabled": "Disabled",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "menu": {
+    "title": "Menus",
+    "description": "Manage admin navigation, page entries, and action permissions",
+    "create": "New Menu",
+    "edit": "Edit Menu",
+    "addChild": "Add Child",
+    "created": "Menu created",
+    "updated": "Menu updated",
+    "deleted": "Menu deleted",
+    "deleteConfirm": "Delete this menu?",
+    "deleteChildrenFirst": "Delete child menus first",
+    "validation": {
+      "name": "Enter a menu name",
+      "i18nKey": "Enter an i18n key",
+      "path": "Enter a route path"
+    },
+    "fields": {
+      "name": "Menu Name",
+      "i18nKey": "i18n Key",
+      "type": "Type",
+      "path": "Route Path",
+      "component": "Component Path",
+      "permission": "Permission Code",
+      "icon": "Menu Icon",
+      "parent": "Parent Menu"
+    },
+    "types": {
+      "DIRECTORY": "Directory",
+      "MENU": "Menu",
+      "BUTTON": "Button"
+    },
+    "placeholders": {
+      "name": "Enter menu name",
+      "i18nKey": "For example: system.menu.title",
+      "parent": "Select a parent menu",
+      "path": "For example: /system/users",
+      "component": "For example: /system/users/index",
+      "permission": "For example: system:user:list",
+      "icon": "For example: lucide:settings"
+    }
+  },
+  "user": {
+    "title": "Users",
+    "description": "Manage admin users, departments, and roles",
+    "create": "New User",
+    "edit": "Edit User",
+    "created": "User created",
+    "updated": "User updated",
+    "deleted": "User deleted",
+    "deleteConfirm": "Delete this user?",
+    "searchPlaceholder": "Search account or name",
+    "allDepartments": "All Departments",
+    "validation": {
+      "identity": "Enter the login account and user name",
+      "password": "Enter an initial password of at least 6 characters",
+      "department": "Select a department",
+      "role": "Select at least one role"
+    },
+    "fields": {
+      "username": "Login Account",
+      "name": "User Name",
+      "password": "Initial Password",
+      "department": "Department",
+      "departmentShort": "Department",
+      "roles": "Roles",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "placeholders": {
+      "username": "Enter login account",
+      "name": "Enter user name",
+      "password": "Enter an initial password of at least 6 characters",
+      "department": "Select a department",
+      "roles": "Select roles",
+      "phone": "Enter phone number",
+      "email": "Enter email address"
+    }
+  },
+  "role": {
+    "title": "Roles",
+    "description": "Configure admin roles and menu permissions",
+    "create": "New Role",
+    "edit": "Edit Role",
+    "created": "Role created",
+    "updated": "Role updated",
+    "deleted": "Role deleted",
+    "deleteConfirm": "Delete this role?",
+    "searchPlaceholder": "Search role name or code",
+    "validation": {
+      "code": "Enter a role code",
+      "codeFormat": "Role code may only contain lowercase letters, numbers, and underscores",
+      "name": "Enter a role name"
+    },
+    "fields": {
+      "code": "Role Code",
+      "name": "Role Name",
+      "permissionCount": "Permissions",
+      "menuPermissions": "Menu Permissions"
+    },
+    "placeholders": {
+      "code": "Enter role code, e.g. product_operator",
+      "name": "Enter role name"
+    }
+  },
+  "department": {
+    "title": "Departments",
+    "description": "Manage the organization hierarchy for user assignment and data access",
+    "create": "New Department",
+    "edit": "Edit Department",
+    "addChild": "Add Child",
+    "created": "Department created",
+    "updated": "Department updated",
+    "deleted": "Department deleted",
+    "deleteConfirm": "Delete this department?",
+    "deleteChildrenFirst": "Delete child departments first",
+    "validation": {
+      "name": "Enter a department name"
+    },
+    "fields": {
+      "name": "Department Name",
+      "parent": "Parent Department"
+    },
+    "placeholders": {
+      "name": "Enter department name",
+      "parent": "Select a parent department"
+    }
+  }
+}

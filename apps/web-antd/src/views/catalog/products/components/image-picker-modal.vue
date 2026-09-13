@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-import type { ImageAsset } from '#/api';
 import type { UploadProps } from 'ant-design-vue';
+
+import type { ImageAsset } from '#/api';
 
 import { ref, watch } from 'vue';
 
@@ -15,6 +16,7 @@ import {
 } from 'ant-design-vue';
 
 import { listImageAssetsApi, uploadImageAssetApi } from '#/api';
+import { $t } from '#/locales';
 
 const props = defineProps<{
   currentKey: string;
@@ -52,7 +54,7 @@ const upload: NonNullable<UploadProps['customRequest']> = async (options) => {
     assets.value.unshift(asset);
     selectedKey.value = asset.key;
     options.onSuccess?.(asset);
-    message.success('图片已上传，请确认使用');
+    message.success($t('catalog.product.imagePicker.uploaded'));
   } catch (error) {
     options.onError?.(error as Error);
   } finally {
@@ -63,7 +65,7 @@ const upload: NonNullable<UploadProps['customRequest']> = async (options) => {
 function confirm() {
   const asset = assets.value.find((item) => item.key === selectedKey.value);
   if (!asset) {
-    message.warning('请先选择一张图片');
+    message.warning($t('catalog.product.imagePicker.selectRequired'));
     return;
   }
   emit('select', asset);
@@ -80,19 +82,25 @@ function formatFileSize(size: number) {
 <template>
   <Modal
     :open="open"
-    title="选择商品图片"
+    :title="$t('catalog.product.imagePicker.title')"
     width="880px"
     @ok="confirm"
     @update:open="emit('update:open', $event)"
   >
     <div class="mb-4 flex items-center justify-between">
-      <span class="text-gray-500">素材来自 OSS 的 beads/ 目录</span>
+      <span class="text-gray-500">{{
+        $t('catalog.product.imagePicker.source')
+      }}</span>
       <Upload
         accept="image/jpeg,image/png,image/webp,image/gif"
         :custom-request="upload"
         :show-upload-list="false"
       >
-        <Button :loading="uploading" type="primary">上传新图片</Button>
+        <Button :loading="uploading" type="primary">
+{{
+          $t('catalog.product.imagePicker.upload')
+        }}
+</Button>
       </Upload>
     </div>
     <Spin :spinning="loading">
@@ -116,7 +124,10 @@ function formatFileSize(size: number) {
           <span class="asset-size">{{ formatFileSize(asset.size) }}</span>
         </button>
       </div>
-      <Empty v-else-if="!loading" description="还没有图片，请先上传" />
+      <Empty
+        v-else-if="!loading"
+        :description="$t('catalog.product.imagePicker.empty')"
+      />
     </Spin>
   </Modal>
 </template>

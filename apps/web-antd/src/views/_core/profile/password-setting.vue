@@ -7,41 +7,44 @@ import { ProfilePasswordSetting, z } from '@vben/common-ui';
 
 import { message } from 'ant-design-vue';
 
+import { changePasswordApi } from '#/api';
+import { $t } from '#/locales';
+
 const formSchema = computed((): VbenFormSchema[] => {
   return [
     {
       fieldName: 'oldPassword',
-      label: '旧密码',
+      label: $t('page.profile.password.old'),
       component: 'VbenInputPassword',
       componentProps: {
-        placeholder: '请输入旧密码',
+        placeholder: $t('page.profile.password.oldPlaceholder'),
       },
     },
     {
       fieldName: 'newPassword',
-      label: '新密码',
+      label: $t('page.profile.password.new'),
       component: 'VbenInputPassword',
       componentProps: {
         passwordStrength: true,
-        placeholder: '请输入新密码',
+        placeholder: $t('page.profile.password.newPlaceholder'),
       },
     },
     {
       fieldName: 'confirmPassword',
-      label: '确认密码',
+      label: $t('page.profile.password.confirm'),
       component: 'VbenInputPassword',
       componentProps: {
         passwordStrength: true,
-        placeholder: '请再次输入新密码',
+        placeholder: $t('page.profile.password.confirmPlaceholder'),
       },
       dependencies: {
         rules(values) {
           const { newPassword } = values;
           return z
-            .string({ error: '请再次输入新密码' })
-            .min(1, { message: '请再次输入新密码' })
+            .string({ error: $t('page.profile.password.confirmPlaceholder') })
+            .min(1, { message: $t('page.profile.password.confirmPlaceholder') })
             .refine((value) => value === newPassword, {
-              message: '两次输入的密码不一致',
+              message: $t('page.profile.password.mismatch'),
             });
         },
         triggerFields: ['newPassword'],
@@ -50,8 +53,12 @@ const formSchema = computed((): VbenFormSchema[] => {
   ];
 });
 
-function handleSubmit() {
-  message.success('密码修改成功');
+async function handleSubmit(values: Record<string, string>) {
+  await changePasswordApi({
+    oldPassword: values.oldPassword ?? '',
+    newPassword: values.newPassword ?? '',
+  });
+  message.success($t('page.profile.password.updated'));
 }
 </script>
 <template>

@@ -14,6 +14,8 @@ import {
   SelectOption,
 } from 'ant-design-vue';
 
+import { $t } from '#/locales';
+
 const props = defineProps<{
   categories: Category[];
   category: Category | null;
@@ -54,7 +56,7 @@ watch(
 
 function submit() {
   if (!form.name.trim()) {
-    message.warning('请填写分类名称');
+    message.warning($t('catalog.category.nameRequired'));
     return;
   }
   emit('submit', {
@@ -70,19 +72,23 @@ function submit() {
   <Modal
     :confirm-loading="confirmLoading"
     :open="open"
-    :title="category ? '编辑分类' : '新建分类'"
+    :title="$t(category ? 'catalog.category.edit' : 'catalog.category.create')"
     @ok="submit"
     @update:open="emit('update:open', $event)"
   >
     <Form class="pt-4" :label-col="{ span: 5 }" :model="form">
-      <FormItem label="分类名称" required>
-        <Input v-model:value="form.name" :maxlength="100" />
+      <FormItem :label="$t('catalog.category.fields.name')" required>
+        <Input
+          v-model:value="form.name"
+          :maxlength="100"
+          :placeholder="$t('catalog.category.namePlaceholder')"
+        />
       </FormItem>
-      <FormItem label="上级分类">
+      <FormItem :label="$t('catalog.category.fields.parent')">
         <Select
           v-model:value="form.parentId"
           allow-clear
-          placeholder="不选择则为根目录"
+          :placeholder="$t('catalog.category.rootPlaceholder')"
         >
           <SelectOption
             v-for="item in parentOptions"
@@ -93,13 +99,28 @@ function submit() {
           </SelectOption>
         </Select>
       </FormItem>
-      <FormItem label="排序">
-        <InputNumber v-model:value="form.sort" class="w-full" />
+      <FormItem :label="$t('catalog.common.sort')">
+        <InputNumber
+          v-model:value="form.sort"
+          class="w-full"
+          :placeholder="$t('catalog.common.sortPlaceholder')"
+        />
       </FormItem>
-      <FormItem label="状态">
-        <Select v-model:value="form.status">
-          <SelectOption value="ENABLED">启用</SelectOption>
-          <SelectOption value="DISABLED">停用</SelectOption>
+      <FormItem :label="$t('catalog.common.status')">
+        <Select
+          v-model:value="form.status"
+          :placeholder="$t('catalog.common.statusPlaceholder')"
+        >
+          <SelectOption value="ENABLED">
+{{
+            $t('common.enabled')
+          }}
+</SelectOption>
+          <SelectOption value="DISABLED">
+{{
+            $t('common.disabled')
+          }}
+</SelectOption>
         </Select>
       </FormItem>
     </Form>

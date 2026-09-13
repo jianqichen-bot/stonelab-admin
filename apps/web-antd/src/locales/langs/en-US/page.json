@@ -7,8 +7,109 @@
     "forgetPassword": "Forget Password",
     "profile": "Profile"
   },
-  "dashboard": {
-    "title": "Dashboard",
-    "overview": "Overview"
+  "home": {
+    "title": "Home",
+    "overview": "Business Overview",
+    "description": "A unified operations workspace for StoneLab products, content, inventory, and orders",
+    "connectedMessage": "Products, inventory, and system access are connected",
+    "connectedDescription": "Categories, bead products, variants, inventory, roles, and dynamic menus are connected to StoneLab Server.",
+    "ready": "Connected",
+    "pending": "Pending",
+    "modules": {
+      "catalog": {
+        "name": "Catalog",
+        "description": "Manage categories, beads, sizes, prices, and availability"
+      },
+      "inventory": {
+        "name": "Inventory",
+        "description": "Manage stock quantities, changes, and low-stock alerts"
+      },
+      "content": {
+        "name": "Content",
+        "description": "Configure banners, customization flows, and inspiration content"
+      },
+      "order": {
+        "name": "Orders",
+        "description": "Handle orders, shipping, cancellations, and after-sales status"
+      }
+    }
+  },
+  "about": {
+    "title": "About StoneLab",
+    "description": "The unified operations platform for the StoneLab mini app",
+    "projectInfo": "Project Information",
+    "appName": "Application",
+    "version": "Current Version",
+    "positioning": "Product Focus",
+    "positioningValue": "Bead products, inventory, and mini app content management",
+    "stage": "Current Stage",
+    "stageValue": "Initial Release",
+    "frontend": "Frontend Stack",
+    "backend": "Backend Stack",
+    "developmentStatus": "Development Status",
+    "developmentDescription": "Catalog, inventory, and system management APIs are connected to StoneLab Server."
+  },
+  "app": {
+    "name": "StoneLab Admin"
+  },
+  "login": {
+    "title": "StoneLab Admin",
+    "subtitle": "Sign in with an operations administrator account",
+    "pageTitle": "Every stone, thoughtfully managed",
+    "pageDescription": "Manage products, content, inventory, and orders"
+  },
+  "profile": {
+    "title": "Profile",
+    "tabs": {
+      "basic": "Basic Settings",
+      "password": "Change Password"
+    },
+    "fields": {
+      "realName": "Name",
+      "username": "Username",
+      "phone": "Phone",
+      "email": "Email"
+    },
+    "placeholders": {
+      "realName": "Enter your name",
+      "username": "Enter username",
+      "phone": "Enter phone number",
+      "email": "Enter email address"
+    },
+    "updated": "Profile updated",
+    "avatar": {
+      "change": "Change avatar",
+      "updated": "Avatar updated"
+    },
+    "password": {
+      "old": "Current Password",
+      "new": "New Password",
+      "confirm": "Confirm Password",
+      "oldPlaceholder": "Enter current password",
+      "newPlaceholder": "Enter new password",
+      "confirmPlaceholder": "Enter the new password again",
+      "mismatch": "The passwords do not match",
+      "updated": "Password updated"
+    },
+    "notification": {
+      "account": "Account Messages",
+      "accountDescription": "Messages from other users will appear as in-app notifications",
+      "system": "System Messages",
+      "systemDescription": "System messages will appear as in-app notifications",
+      "todo": "Tasks",
+      "todoDescription": "Tasks will appear as in-app notifications"
+    },
+    "security": {
+      "password": "Account Password",
+      "passwordDescription": "Current password strength: Strong",
+      "phone": "Security Phone",
+      "phoneDescription": "Bound phone: 138****8293",
+      "question": "Security Question",
+      "questionDescription": "No security question has been configured",
+      "email": "Backup Email",
+      "emailDescription": "Bound email: ant***sign.com",
+      "mfa": "MFA Device",
+      "mfaDescription": "No MFA device is bound. Binding one enables secondary verification"
+    }
   }
 }

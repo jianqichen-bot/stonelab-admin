@@ -7,8 +7,109 @@
     "forgetPassword": "忘记密码",
     "profile": "个人中心"
   },
-  "dashboard": {
-    "title": "概览",
-    "overview": "业务概览"
+  "home": {
+    "title": "首页",
+    "overview": "业务概览",
+    "description": "StoneLab 商品、内容、库存与订单的统一运营入口",
+    "connectedMessage": "商品、库存与系统权限已接入",
+    "connectedDescription": "分类、珠子商品、规格库存、用户角色和动态菜单均已连接 StoneLab Server。",
+    "ready": "已接入",
+    "pending": "待接入",
+    "modules": {
+      "catalog": {
+        "name": "商品中心",
+        "description": "维护分类、珠子、尺寸、价格与上下架状态"
+      },
+      "inventory": {
+        "name": "库存中心",
+        "description": "管理库存数量、变动记录与库存预警"
+      },
+      "content": {
+        "name": "内容运营",
+        "description": "配置首页 Banner、定制流程和灵感作品"
+      },
+      "order": {
+        "name": "订单中心",
+        "description": "处理订单、发货、取消与售后状态"
+      }
+    }
+  },
+  "about": {
+    "title": "关于 StoneLab",
+    "description": "StoneLab 小程序业务的统一运营管理平台",
+    "projectInfo": "项目信息",
+    "appName": "应用名称",
+    "version": "当前版本",
+    "positioning": "产品定位",
+    "positioningValue": "珠子商品、库存与小程序内容管理",
+    "stage": "当前阶段",
+    "stageValue": "第一版功能建设",
+    "frontend": "前端技术",
+    "backend": "服务端技术",
+    "developmentStatus": "开发状态",
+    "developmentDescription": "商品、库存和系统管理接口已接入 StoneLab Server。"
+  },
+  "app": {
+    "name": "StoneLab 管理后台"
+  },
+  "login": {
+    "title": "StoneLab 管理后台",
+    "subtitle": "使用运营管理员账号登录",
+    "pageTitle": "让每一颗石头有迹可循",
+    "pageDescription": "管理商品、内容、库存与订单"
+  },
+  "profile": {
+    "title": "个人中心",
+    "tabs": {
+      "basic": "基本设置",
+      "password": "修改密码"
+    },
+    "fields": {
+      "realName": "姓名",
+      "username": "用户名",
+      "phone": "手机号",
+      "email": "邮箱"
+    },
+    "placeholders": {
+      "realName": "请输入姓名",
+      "username": "请输入用户名",
+      "phone": "请输入手机号",
+      "email": "请输入邮箱"
+    },
+    "updated": "基本资料已更新",
+    "avatar": {
+      "change": "更换头像",
+      "updated": "头像已更新"
+    },
+    "password": {
+      "old": "旧密码",
+      "new": "新密码",
+      "confirm": "确认密码",
+      "oldPlaceholder": "请输入旧密码",
+      "newPlaceholder": "请输入新密码",
+      "confirmPlaceholder": "请再次输入新密码",
+      "mismatch": "两次输入的密码不一致",
+      "updated": "密码修改成功"
+    },
+    "notification": {
+      "account": "账户消息",
+      "accountDescription": "其他用户的消息将以站内信的形式通知",
+      "system": "系统消息",
+      "systemDescription": "系统消息将以站内信的形式通知",
+      "todo": "待办任务",
+      "todoDescription": "待办任务将以站内信的形式通知"
+    },
+    "security": {
+      "password": "账户密码",
+      "passwordDescription": "当前密码强度：强",
+      "phone": "密保手机",
+      "phoneDescription": "已绑定手机：138****8293",
+      "question": "密保问题",
+      "questionDescription": "未设置密保问题，密保问题可有效保护账户安全",
+      "email": "备用邮箱",
+      "emailDescription": "已绑定邮箱：ant***sign.com",
+      "mfa": "MFA 设备",
+      "mfaDescription": "未绑定 MFA 设备，绑定后可以进行二次确认"
+    }
   }
 }

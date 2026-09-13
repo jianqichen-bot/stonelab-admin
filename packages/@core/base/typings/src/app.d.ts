@@ -104,7 +104,7 @@ type AuthPageLayoutType = 'panel-center' | 'panel-left' | 'panel-right';
  * 时区选项
  */
 interface TimezoneOption {
-  label: string;
+  labelKey: string;
   offset: number;
   timezone: string;
 }

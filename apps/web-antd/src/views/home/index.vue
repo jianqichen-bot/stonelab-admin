@@ -1,6 +1,9 @@
 <script lang="ts" setup>
+import { computed } from 'vue';
+
 import { Page } from '@vben/common-ui';
 import { IconifyIcon } from '@vben/icons';
+import { useI18n } from '@vben/locales';
 
 import {
   Alert,
@@ -13,46 +16,46 @@ import {
   TypographyTitle,
 } from 'ant-design-vue';
 
-const modules = [
+const { t } = useI18n();
+
+const modules = computed(() => [
   {
-    description: '维护分类、珠子、尺寸、价格与上下架状态',
+    description: t('page.home.modules.catalog.description'),
     icon: 'lucide:gem',
-    name: '商品中心',
+    name: t('page.home.modules.catalog.name'),
     ready: true,
   },
   {
-    description: '管理库存数量、变动记录与库存预警',
+    description: t('page.home.modules.inventory.description'),
     icon: 'lucide:boxes',
-    name: '库存中心',
+    name: t('page.home.modules.inventory.name'),
     ready: true,
   },
   {
-    description: '配置首页 Banner、定制流程和灵感作品',
+    description: t('page.home.modules.content.description'),
     icon: 'lucide:images',
-    name: '内容运营',
+    name: t('page.home.modules.content.name'),
     ready: false,
   },
   {
-    description: '处理订单、发货、取消与售后状态',
+    description: t('page.home.modules.order.description'),
     icon: 'lucide:shopping-bag',
-    name: '订单中心',
+    name: t('page.home.modules.order.name'),
     ready: false,
   },
-];
+]);
 </script>
 
 <template>
-  <Page
-    description="StoneLab 商品、内容、库存与订单的统一运营入口"
-    title="业务概览"
-  >
-    <Alert
-      class="mb-5"
-      message="商品与库存管理第一版已接入"
-      description="分类、珠子商品、规格价格和库存已连接 StoneLab Server；登录仍使用临时 Mock 账号。"
-      show-icon
-      type="info"
-    />
+  <Page :description="t('page.home.description')" :title="t('page.home.overview')">
+    <div class="mb-5">
+      <Alert
+        :message="t('page.home.connectedMessage')"
+        :description="t('page.home.connectedDescription')"
+        show-icon
+        type="info"
+      />
+    </div>
 
     <Row :gutter="[16, 16]">
       <Col v-for="item in modules" :key="item.name" :lg="6" :md="12" :xs="24">
@@ -67,7 +70,7 @@ const modules = [
                   {{ item.name }}
                 </TypographyTitle>
                 <Tag :color="item.ready ? 'green' : 'default'">
-                  {{ item.ready ? '已接入' : '待接入' }}
+                  {{ item.ready ? t('page.home.ready') : t('page.home.pending') }}
                 </Tag>
               </Space>
               <TypographyParagraph class="!mt-3 !mb-0" type="secondary">

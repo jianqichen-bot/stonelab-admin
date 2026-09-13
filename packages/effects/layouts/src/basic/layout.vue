@@ -266,8 +266,28 @@ function refreshAll() {
 // i18n.global.locale会在preference.app.locale变更之后才会更新，因此watchpreference.app.locale是不合适的，刷新页面时可能语言配置尚未完全加载完成
 watch(i18n.global.locale, refreshAll, { flush: 'post' });
 
-// 时区更新后，刷新页面
-watch(() => timezoneStore.timezone, refreshAll, { flush: 'post' });
+// 偏好设置与顶栏时区入口保持双向同步。
+watch(
+  () => preferences.app.timezone,
+  (timezone) => {
+    if (timezone && timezone !== timezoneStore.timezone) {
+      void timezoneStore.setTimezone(timezone);
+    }
+  },
+  { immediate: true },
+);
+
+// 时区更新后同步偏好设置并刷新页面。
+watch(
+  () => timezoneStore.timezone,
+  (timezone) => {
+    if (timezone && timezone !== preferences.app.timezone) {
+      updatePreferences({ app: { timezone } });
+    }
+    refreshAll();
+  },
+  { flush: 'post' },
+);
 
 const slots: SetupContext['slots'] = useSlots();
 const headerSlots = computed(() => {
