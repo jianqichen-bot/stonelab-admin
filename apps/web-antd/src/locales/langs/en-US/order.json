@@ -1,0 +1,51 @@
+{
+  "title": "Orders",
+  "description": "Search orders, review line items, and manage fulfillment status",
+  "itemCount": "{count} items",
+  "fields": {
+    "actions": "Actions",
+    "address": "Shipping Address",
+    "adminRemark": "Admin Note",
+    "buyerRemark": "Buyer Note",
+    "createdAt": "Created At",
+    "items": "Items",
+    "orderNo": "Order Number",
+    "product": "Product",
+    "quantity": "Quantity",
+    "recipient": "Recipient",
+    "shippingFee": "Shipping Fee",
+    "status": "Status",
+    "subtotal": "Subtotal",
+    "totalAmount": "Total",
+    "tracking": "Tracking",
+    "trackingCompany": "Carrier",
+    "trackingNo": "Tracking Number",
+    "unitPrice": "Unit Price"
+  },
+  "placeholders": {
+    "adminRemark": "Enter an internal note",
+    "orderNo": "Order number",
+    "search": "Search order, recipient, phone, or tracking number",
+    "status": "All statuses",
+    "trackingCompany": "Enter carrier",
+    "trackingNo": "Enter tracking number"
+  },
+  "statuses": {
+    "PENDING_PAYMENT": "Pending Payment",
+    "PAID": "Paid",
+    "PROCESSING": "Processing",
+    "SHIPPED": "Shipped",
+    "COMPLETED": "Completed",
+    "CANCELLED": "Cancelled"
+  },
+  "detail": {
+    "title": "Order Details"
+  },
+  "statusUpdate": {
+    "action": "Update Status",
+    "nextStatus": "Next Status",
+    "statusPlaceholder": "Select the next status",
+    "title": "Update Order Status",
+    "updated": "Order status updated"
+  }
+}
