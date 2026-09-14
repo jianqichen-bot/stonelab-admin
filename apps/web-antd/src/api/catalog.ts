@@ -56,7 +56,7 @@ export interface CategoryInput {
 
 export interface ProductInput {
   categoryId: number;
-  imageKey?: null | string;
+  imageKey: string;
   name: string;
   shape?: BeadShape;
   sort?: number;

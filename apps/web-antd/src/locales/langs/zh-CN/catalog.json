@@ -38,6 +38,7 @@
     "allStatuses": "全部状态",
     "namePlaceholder": "请输入商品名称",
     "formRequired": "请填写分类和商品名称",
+    "imageRequired": "请选择商品图片",
     "noImage": "暂无图片",
     "selectImage": "选择图片",
     "removeImage": "移除图片",

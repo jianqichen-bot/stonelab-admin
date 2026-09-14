@@ -18,10 +18,11 @@ import {
 import {
   createSystemMenu,
   deleteSystemMenu,
+  getMenuTranslationsApi,
   listSystemMenus,
   updateSystemMenu,
 } from '#/api';
-import { $t } from '#/locales';
+import { $t, i18n, registerDynamicMenuTranslations } from '#/locales';
 
 import MenuFormModal from './components/menu-form-modal.vue';
 
@@ -34,15 +35,8 @@ const parentId = ref<null | number>(null);
 const columns = computed(() => [
   {
     title: $t('system.menu.fields.name'),
-    dataIndex: 'name',
     key: 'name',
     width: 180,
-  },
-  {
-    title: $t('system.menu.fields.i18nKey'),
-    dataIndex: 'i18nKey',
-    key: 'i18nKey',
-    width: 210,
   },
   { title: $t('system.menu.fields.type'), key: 'type', width: 90 },
   { title: $t('system.menu.fields.path'), dataIndex: 'path', key: 'path' },
@@ -85,6 +79,11 @@ function asMenu(row: Record<string, unknown>) {
 function menuTypeLabel(type: SystemMenu['type']) {
   return $t(`system.menu.types.${type}`);
 }
+function menuName(menu: SystemMenu) {
+  return i18n.global.locale.value === 'en-US'
+    ? menu.nameEn || menu.name
+    : menu.name;
+}
 async function save(input: SystemMenuInput) {
   saving.value = true;
   try {
@@ -96,6 +95,7 @@ async function save(input: SystemMenuInput) {
     );
     open.value = false;
     await load();
+    registerDynamicMenuTranslations(await getMenuTranslationsApi());
   } finally {
     saving.value = false;
   }
@@ -116,9 +116,7 @@ onMounted(load);
     <Card :bordered="false">
       <div class="mb-4 flex justify-between">
         <Button :loading="loading" @click="load">
-{{
-          $t('common.refresh')
-        }}
+          {{ $t('common.refresh') }}
 </Button><Button
           v-access:code="'system:menu:create'"
           type="primary"
@@ -136,7 +134,10 @@ onMounted(load);
         default-expand-all-rows
       >
         <template #bodyCell="{ column, record }">
-          <template v-if="column.key === 'type'">
+          <template v-if="column.key === 'name'">
+            {{ menuName(asMenu(record)) }}
+          </template>
+          <template v-else-if="column.key === 'type'">
             <Tag>{{ menuTypeLabel(record.type) }}</Tag>
           </template>
           <template v-else-if="column.key === 'status'">

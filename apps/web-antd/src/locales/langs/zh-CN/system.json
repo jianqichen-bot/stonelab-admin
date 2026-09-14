@@ -26,13 +26,14 @@
     "deleteConfirm": "确定删除这个菜单？",
     "deleteChildrenFirst": "请先删除下级菜单",
     "validation": {
-      "name": "请填写菜单名称",
-      "i18nKey": "请填写国际化标识",
+      "nameZh": "请填写中文名称",
+      "nameEn": "请填写英文名称",
       "path": "请填写路由地址"
     },
     "fields": {
-      "name": "菜单名称",
-      "i18nKey": "国际化标识",
+      "name": "名称",
+      "nameZh": "中文名称",
+      "nameEn": "英文名称",
       "type": "类型",
       "path": "路由地址",
       "component": "组件路径",
@@ -46,8 +47,8 @@
       "BUTTON": "按钮"
     },
     "placeholders": {
-      "name": "请输入菜单名称",
-      "i18nKey": "例如 system.menu.title",
+      "nameZh": "请输入中文名称",
+      "nameEn": "请输入英文名称",
       "parent": "请选择上级菜单",
       "path": "例如 /system/users",
       "component": "例如 /system/users/index",

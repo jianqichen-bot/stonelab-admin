@@ -18,7 +18,7 @@ import {
   TreeSelect,
 } from 'ant-design-vue';
 
-import { $t } from '#/locales';
+import { $t, i18n } from '#/locales';
 
 const props = defineProps<{
   confirmLoading: boolean;
@@ -31,11 +31,10 @@ const emit = defineEmits<{
   submit: [value: SystemMenuInput];
   'update:open': [value: boolean];
 }>();
-type MenuForm = Omit<SystemMenuInput, 'i18nKey'> & { i18nKey: string };
 
-const form = reactive<MenuForm>({
+const form = reactive<SystemMenuInput>({
   name: '',
-  i18nKey: '',
+  nameEn: '',
   parentId: null,
   type: 'MENU',
   path: '',
@@ -45,9 +44,34 @@ const form = reactive<MenuForm>({
   sort: 0,
   status: 'ENABLED',
 });
-const parentTree = computed(() =>
-  props.menus.filter((item) => item.id !== props.menu?.id),
-);
+type ParentMenuOption = {
+  children?: ParentMenuOption[];
+  id: number;
+  name: string;
+};
+
+const parentTree = computed<ParentMenuOption[]>(() => {
+  const toOption = (menu: SystemMenu): null | ParentMenuOption => {
+    if (menu.id === props.menu?.id) return null;
+
+    const children = (menu.children ?? [])
+      .map(toOption)
+      .filter((item): item is ParentMenuOption => item !== null);
+
+    return {
+      id: menu.id,
+      name:
+        i18n.global.locale.value === 'en-US'
+          ? menu.nameEn || menu.name
+          : menu.name,
+      ...(children.length ? { children } : {}),
+    };
+  };
+
+  return props.menus
+    .map(toOption)
+    .filter((item): item is ParentMenuOption => item !== null);
+});
 
 watch(
   () => props.open,
@@ -55,7 +79,7 @@ watch(
     if (!open) return;
     Object.assign(form, {
       name: props.menu?.name ?? '',
-      i18nKey: props.menu?.i18nKey ?? null,
+      nameEn: props.menu?.nameEn ?? '',
       parentId: props.menu?.parentId ?? props.parentId ?? null,
       type: props.menu?.type ?? 'MENU',
       path: props.menu?.path ?? '',
@@ -70,15 +94,15 @@ watch(
 
 function submit() {
   if (!form.name.trim())
-    return void message.warning($t('system.menu.validation.name'));
-  if (form.type !== 'BUTTON' && !form.i18nKey?.trim())
-    return void message.warning($t('system.menu.validation.i18nKey'));
+    return void message.warning($t('system.menu.validation.nameZh'));
+  if (!form.nameEn.trim())
+    return void message.warning($t('system.menu.validation.nameEn'));
   if (form.type !== 'BUTTON' && !form.path.trim())
     return void message.warning($t('system.menu.validation.path'));
   emit('submit', {
     ...form,
     name: form.name.trim(),
-    i18nKey: form.i18nKey?.trim() || null,
+    nameEn: form.nameEn.trim(),
     path: form.path.trim(),
     component: form.component.trim(),
     permission: form.permission.trim(),
@@ -108,21 +132,18 @@ function submit() {
           option-type="button"
         />
       </FormItem>
-      <FormItem :label="$t('system.menu.fields.name')" required>
+      <FormItem :label="$t('system.menu.fields.nameZh')" required>
         <Input
           v-model:value="form.name"
           :maxlength="50"
-          :placeholder="$t('system.menu.placeholders.name')"
+          :placeholder="$t('system.menu.placeholders.nameZh')"
         />
       </FormItem>
-      <FormItem
-        v-if="form.type !== 'BUTTON'"
-        :label="$t('system.menu.fields.i18nKey')"
-        required
-      >
+      <FormItem :label="$t('system.menu.fields.nameEn')" required>
         <Input
-          v-model:value="form.i18nKey"
-          :placeholder="$t('system.menu.placeholders.i18nKey')"
+          v-model:value="form.nameEn"
+          :maxlength="100"
+          :placeholder="$t('system.menu.placeholders.nameEn')"
         />
       </FormItem>
       <FormItem :label="$t('system.menu.fields.parent')">

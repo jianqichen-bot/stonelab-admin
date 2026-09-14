@@ -38,6 +38,7 @@
     "allStatuses": "All Statuses",
     "namePlaceholder": "Enter product name",
     "formRequired": "Select a category and enter a product name",
+    "imageRequired": "Select a product image",
     "noImage": "No image",
     "selectImage": "Select Image",
     "removeImage": "Remove Image",

@@ -16,7 +16,7 @@ import {
   Tree,
 } from 'ant-design-vue';
 
-import { $t } from '#/locales';
+import { $t, i18n } from '#/locales';
 
 const props = defineProps<{
   confirmLoading: boolean;
@@ -28,7 +28,19 @@ const emit = defineEmits<{
   submit: [value: SystemRoleInput];
   'update:open': [value: boolean];
 }>();
-const permissionTree = computed(() => props.menus as unknown as DataNode[]);
+const permissionTree = computed<DataNode[]>(() => {
+  const toNode = (menu: SystemMenu): DataNode => ({
+    key: menu.id,
+    title:
+      i18n.global.locale.value === 'en-US'
+        ? menu.nameEn || menu.name
+        : menu.name,
+    ...(menu.children?.length
+      ? { children: menu.children.map(toNode) }
+      : {}),
+  });
+  return props.menus.map(toNode);
+});
 const form = reactive<SystemRoleInput>({
   code: '',
   name: '',
@@ -110,7 +122,6 @@ function submit() {
             v-model:checked-keys="form.permissionIds"
             checkable
             default-expand-all
-            :field-names="{ children: 'children', key: 'id', title: 'name' }"
             :tree-data="permissionTree"
           />
         </div>

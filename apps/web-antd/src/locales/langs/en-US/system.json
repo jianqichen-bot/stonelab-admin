@@ -26,13 +26,14 @@
     "deleteConfirm": "Delete this menu?",
     "deleteChildrenFirst": "Delete child menus first",
     "validation": {
-      "name": "Enter a menu name",
-      "i18nKey": "Enter an i18n key",
+      "nameZh": "Enter the Chinese name",
+      "nameEn": "Enter the English name",
       "path": "Enter a route path"
     },
     "fields": {
-      "name": "Menu Name",
-      "i18nKey": "i18n Key",
+      "name": "Name",
+      "nameZh": "Chinese Name",
+      "nameEn": "English Name",
       "type": "Type",
       "path": "Route Path",
       "component": "Component Path",
@@ -46,8 +47,8 @@
       "BUTTON": "Button"
     },
     "placeholders": {
-      "name": "Enter menu name",
-      "i18nKey": "For example: system.menu.title",
+      "nameZh": "Enter the Chinese name",
+      "nameEn": "Enter the English name",
       "parent": "Select a parent menu",
       "path": "For example: /system/users",
       "component": "For example: /system/users/index",

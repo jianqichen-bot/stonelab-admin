@@ -9,6 +9,7 @@ import { ref } from 'vue';
 import {
   $t,
   setupI18n as coreSetup,
+  i18n,
   loadLocalesMapFromDir,
 } from '@vben/locales';
 import { preferences } from '@vben/preferences';
@@ -25,6 +26,21 @@ const localesMap = loadLocalesMapFromDir(
   /\.\/langs\/([^/]+)\/(.*)\.json$/,
   modules,
 );
+
+type DynamicMenuMessages = { menu: Record<string, string> };
+type DynamicMenuTranslations = Record<'en-US' | 'zh-CN', DynamicMenuMessages>;
+const dynamicMenuMessages: Partial<
+  Record<SupportedLanguagesType, DynamicMenuMessages>
+> = {};
+
+function registerDynamicMenuTranslations(
+  translations: DynamicMenuTranslations,
+) {
+  for (const locale of ['zh-CN', 'en-US'] as const) {
+    dynamicMenuMessages[locale] = translations[locale];
+    i18n.global.mergeLocaleMessage(locale, translations[locale]);
+  }
+}
 /**
  * 加载应用特有的语言包
  * 这里也可以改造为从服务端获取翻译数据
@@ -35,7 +51,10 @@ async function loadMessages(lang: SupportedLanguagesType) {
     localesMap[lang]?.(),
     loadThirdPartyMessage(lang),
   ]);
-  return appLocaleMessages?.default;
+  return {
+    ...((appLocaleMessages?.default ?? {}) as Record<string, unknown>),
+    ...(dynamicMenuMessages[lang] ?? {}),
+  } as unknown as Record<string, string>;
 }
 
 /**
@@ -99,4 +118,4 @@ async function setupI18n(app: App, options: LocaleSetupOptions = {}) {
   });
 }
 
-export { $t, antdLocale, setupI18n };
+export { $t, antdLocale, i18n, registerDynamicMenuTranslations, setupI18n };

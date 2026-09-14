@@ -92,13 +92,14 @@ function submit() {
     message.warning($t('catalog.product.formRequired'));
     return;
   }
-  const imagePayload: Pick<ProductInput, 'imageKey'> = {};
-  if (form.imageKey.trim()) imagePayload.imageKey = form.imageKey.trim();
-  else if (props.product) imagePayload.imageKey = null;
+  if (!form.imageKey.trim()) {
+    message.warning($t('catalog.product.imageRequired'));
+    return;
+  }
 
   emit('submit', {
     categoryId: form.categoryId,
-    ...imagePayload,
+    imageKey: form.imageKey.trim(),
     name: form.name.trim(),
     shape: form.shape,
     sort: form.sort,
@@ -137,7 +138,7 @@ function submit() {
           </SelectOption>
         </Select>
       </FormItem>
-      <FormItem :label="$t('catalog.product.fields.image')">
+      <FormItem :label="$t('catalog.product.fields.image')" required>
         <div class="flex items-center gap-3">
           <div class="product-image-preview">
             <Image

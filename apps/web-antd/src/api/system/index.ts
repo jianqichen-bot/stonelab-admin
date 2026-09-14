@@ -17,9 +17,9 @@ export interface SystemMenu {
   children?: SystemMenu[];
   component: string;
   icon: string;
-  i18nKey: null | string;
   id: number;
   name: string;
+  nameEn: string;
   parentId: null | number;
   path: string;
   permission: string;
