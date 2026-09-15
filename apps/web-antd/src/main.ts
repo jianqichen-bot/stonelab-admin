@@ -22,7 +22,7 @@ async function initApplication() {
   });
   // StoneLab 的业务路由由服务端按角色下发，不能被历史本地偏好切回 frontend。
   updatePreferences({
-    app: { accessMode: 'backend' },
+    app: { accessMode: 'backend', enableRefreshToken: true },
     widget: {
       languageToggle: true,
       languageToggleButtonPosition: 'header',

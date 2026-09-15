@@ -19,7 +19,12 @@ export namespace AuthApi {
   }
 
   export interface RefreshTokenResult {
-    data: string;
+    data: {
+      code: number;
+      data: string;
+      error: null | string;
+      message: string;
+    };
     status: number;
   }
 }

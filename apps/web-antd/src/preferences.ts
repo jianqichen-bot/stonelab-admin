@@ -11,6 +11,7 @@ export const overridesPreferences = defineOverridesPreferences({
     defaultHomePath: '/home',
     enableCheckUpdates: false,
     enableCopyPreferences: false,
+    enableRefreshToken: true,
     locale: 'zh-CN',
     name: import.meta.env.VITE_APP_TITLE,
   },
